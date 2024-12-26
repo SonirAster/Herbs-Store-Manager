@@ -1,7 +1,7 @@
 from odoo import api, fields, models
 
 
-class Order (models.Model) :
+class HS_Order (models.Model) :
     _name = 'hs.order'
     _description = 'herbs store orders'
 
@@ -10,11 +10,19 @@ class Order (models.Model) :
         required=True,
         default='Order Name',
     )
+    _inherit = ['mail.thread']
     description = fields.Text(
         string='Description'
     )
     expected_price = fields.Float(
         string='Expected Price', 
+    )
+    delivery_point = fields.Char(
+        string='Delivery Point'
+    )
+    package = fields.Text(
+        string='Package',
+        required=True
     )
     urgency = fields.Selection(
         string='Urgency',
@@ -26,3 +34,8 @@ class Order (models.Model) :
             ('very urgent', 'Very Urgent')
         ]
     )
+    customer = fields.Char(
+        string='Customer',
+        required=True
+    )
+

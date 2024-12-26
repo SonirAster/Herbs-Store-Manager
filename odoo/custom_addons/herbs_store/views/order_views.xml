@@ -11,12 +11,57 @@
         <field name="name">hs.order.tree.view</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
-            <list string="Channel">
-                <field name="title"/>
-                <field name="description"/>
-                <field name="expected_price"/>
-                <field name="urgency"/>
+            <list string="HS list">
+                <field name="title" optional="show"/>
+                <field name="customer" optional="hide"/>
+                <field name="urgency" optional="show"/>
+                <field name="delivery_point" optional="show"/>
+                <field name="expected_price" optional="hide"/>
             </list>
+        </field>
+    </record>
+
+    <record id="hs_view_form" model="ir.ui.view">
+        <field name="name">hs.order.form.view</field>
+        <field name="model">hs.order</field>
+        <field name="arch" type="xml">
+            <form string="HS form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="customer"/>
+                        </group>
+                        <group>
+                            <field name="urgency"/>
+                            <field name="expected_price"/>
+                            <field name="delivery_point"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/> 
+                        </page>
+                        <page string="Package">
+                            <field name="package"/> 
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_HS_orders_search" model="ir.ui.view">
+        <field name="name">hs.order.form.view</field>
+        <field name="model">hs.order</field>
+        <field name="arch" type="xml">
+            <search string="HS orders search">
+                <field name="title" string="Title" />
+                <field name="delivery_point" string='Delivery Point'/>
+                <field name="customer" string='Customer'/>
+                <field name="description" string='Description'/>
+                <field name="package" string='Package'/>
+            </search>
         </field>
     </record>
 

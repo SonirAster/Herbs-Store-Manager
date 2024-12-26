@@ -6,7 +6,7 @@
             <menuitem id='hs_orders_menu_action'
                 name='Orders'
                 action='hs_orders_action'
-            /> 
+            />
         </menuitem>
     </menuitem>
 
