@@ -12,17 +12,24 @@ class HS_Order (models.Model) :
     )
     _inherit = ['mail.thread']
     description = fields.Text(
-        string='Description'
+        string='Description',
+        tracking=True
     )
     expected_price = fields.Float(
         string='Expected Price', 
     )
     delivery_point = fields.Char(
-        string='Delivery Point'
+        string='Delivery Point',
+        tracking=True
     )
     package = fields.Text(
         string='Package',
-        required=True
+        required=True,
+        tracking=True
+    )
+    item = fields.Many2one(
+        'hs.inventory',
+        string='Item'
     )
     urgency = fields.Selection(
         string='Urgency',
@@ -32,10 +39,12 @@ class HS_Order (models.Model) :
             ('preferably sooner', 'Preferably Sooner'), 
             ('urgent', 'Urgent'), 
             ('very urgent', 'Very Urgent')
-        ]
+        ],
+        tracking=True
     )
     customer = fields.Char(
         string='Customer',
-        required=True
+        required=True,
+        tracking=True
     )
 

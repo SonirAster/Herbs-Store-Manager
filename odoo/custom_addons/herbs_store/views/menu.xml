@@ -7,6 +7,10 @@
                 name='Orders'
                 action='hs_orders_action'
             />
+            <menuitem id='hs_orders_menu_readonly_action'
+                name='View orders'
+                action='hs_orders_readonly_action'
+            />
         </menuitem>
     </menuitem>
 
