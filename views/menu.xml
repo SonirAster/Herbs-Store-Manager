@@ -2,16 +2,30 @@
 <odoo>
 
     <menuitem id='hs_menu_root' name='Herbs Store'>
-        <menuitem id='menu_frontdesk' name='Front Desk'>
-            <menuitem id='hs_orders_menu_action'
+        <menuitem id='hs_menu_frontdesk' name='Front Desk'>
+            <menuitem 
+                id='hs_orders_menu_action'
                 name='Orders'
                 action='hs_orders_action'
             />
-            <menuitem id='hs_orders_menu_readonly_action'
-                name='View orders'
-                action='hs_orders_readonly_action'
+            <menuitem 
+                id='hs_stock_menu_action'
+                name='Stock'
+                action='hs_stock_action'
+            />
+            <menuitem 
+                id='hs_customers_menu_action'
+                name='Customers'
+                action='hs_customers_action'
             />
         </menuitem>
+        <!-- <menuitem id='hs_menu_accounting'>
+            <menuitem
+                id='hs_fulfilled_orders_menu_action'
+                name='Fulfilled Orders'
+                action='hs_fullfilled_orders_action'
+            />
+        </menuitem> -->
     </menuitem>
 
 </odoo>

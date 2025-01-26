@@ -4,37 +4,60 @@
     <record id='hs_orders_action' model='ir.actions.act_window'>
         <field name='name'>Orders list</field>
         <field name='res_model'>hs.order</field>
-        <field name='view_mode'>list,form,kanban</field>
+        <field name='view_mode'>list,form</field>
+        <field name="help" type='html'>
+            <p class="o_view_nocontent_smiling_face">
+                Create a new order
+            </p>
+        </field>
     </record>
 
-    <record id="hs_view_tree" model="ir.ui.view">
+    <!-- List/Tree View -->
+    <record id="hs_order_view_tree" model="ir.ui.view">
         <field name="name">hs.order.tree.view</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
-            <list string="HS list">
-                <field name="title" optional="show"/>
-                <field name="customer" optional="hide"/>
+            <list string="Orders list">
+                <field name="status"/>
+                <field name="name" optional="show"/>
+                <field name="customer_id" optional="show"/>
                 <field name="urgency" optional="show"/>
                 <field name="delivery_point" optional="show"/>
-                <field name="expected_price" optional="hide"/>
+                <field name="price" optional="show"/>
             </list>
         </field>
     </record>
 
-    <record id="hs_view_form" model="ir.ui.view">
+    <!-- Form View -->
+    <record id="hs_order_view_form" model="ir.ui.view">
         <field name="name">hs.order.form.view</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
-            <form string="HS form">
+            <form string="Orders form">
+                <header>
+                    <button type="object" class='oe_highlight'
+                        name="action_fulfill_order" 
+                        string="Mark as Fulfilled" 
+                        invisible="status == 'canceled' or status == 'fulfilled'" />
+                    <button type="object" class='oe_highlight'
+                        name='action_send_order' 
+                        string="Mark as Sent" 
+                        invisible="status == 'canceled'" />
+                    <button type="object" 
+                        name='action_cancel_order' 
+                        string="Mark as Canceled" 
+                        invisible="status == 'canceled'" />
+                    <field name="status" widget='statusbar' statusbar_visible='fulfilled,sent,pending'/>
+                </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="title"/>
-                            <field name="customer"/>
+                            <field name="name"/>
+                            <field name="customer_id"/>
                         </group>
                         <group>
                             <field name="urgency"/>
-                            <field name="expected_price"/>
+                            <field name="price"/>
                             <field name="delivery_point"/>
                         </group>
                     </group>
@@ -43,28 +66,28 @@
                             <field name="description"/> 
                         </page>
                         <page string="Package">
-                            <field name="package"/> 
+                            <field name="package_ids"/>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
+                <!-- <div class="oe_chatter">
                     <field name="message_follower_ids" groups='base.group_user'/>
                     <field name="message_ids"/>
-                </div>
+                </div> -->
             </form>
         </field>
     </record>
 
-    <record id="view_HS_orders_search" model="ir.ui.view">
+    <!-- Search View -->
+    <record id="view_hs_orders_search" model="ir.ui.view">
         <field name="name">hs.order.form.view</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
-            <search string="HS orders search">
-                <field name="title" string="Title" />
+            <search string="hs orders search">
+                <field name="name" string="Title" />
                 <field name="delivery_point" string='Delivery Point'/>
-                <field name="customer" string='Customer'/>
+                <field name="package_ids" string='Package'/>
                 <field name="description" string='Description'/>
-                <field name="package" string='Package'/>
                 <filter name="Urgent Orders" domain="[('urgency', '=', 'urgent')]"/>
             </search>
         </field>

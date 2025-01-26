@@ -1,12 +1,13 @@
 {
     'name': 'Herbs Store Manager',
     'author': 'Sofic',
-    'depends' : ['base', 'mail'],
+    'depends' : ['base'],
     'license': 'LGPL-3',
     'application': True,
     'data': [
         'security/ir.model.access.csv',
-        'views/order_readonly_views.xml',
+        'views/stock_views.xml',
+        'views/customer_views.xml',
         'views/order_views.xml',
         'views/menu.xml',
     ]

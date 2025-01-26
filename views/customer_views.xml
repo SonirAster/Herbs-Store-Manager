@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id='hs_customers_action' model='ir.actions.act_window'>
+        <field name='name'>Customers list</field>
+        <field name='res_model'>hs.customer</field>
+        <field name='view_mode'>list,form</field>
+        <field name="help" type='html'>
+            <p class="o_view_nocontent_smiling_face">
+                Create a new customer record
+            </p>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="hs_customer_view_tree" model="ir.ui.view">
+        <field name="name">hs.customer.tree.view</field>
+        <field name="model">hs.customer</field>
+        <field name="arch" type="xml">
+            <list string="hs list">
+                <field name="name"/>
+                <field name="location"/>
+                <field name="active_orders"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="hs_customer_view_form" model="ir.ui.view">
+        <field name="name">hs.customer.form.view</field>
+        <field name="model">hs.customer</field>
+        <field name="arch" type="xml">
+            <form string="hs customers list">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="location"/>
+                    </group>
+                    <group>
+                        <field name="active_orders" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hs_customers_search" model="ir.ui.view">
+        <field name="name">hs.customer.form.view</field>
+        <field name="model">hs.customer</field>
+        <field name="arch" type="xml">
+            <search string="HS customers search">
+                <field name="name" string="Location"/>
+                <field name="location" string="show"/>
+                <filter name="Customers located in Germany" domain="[('location', '=', 'Germany')]"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>
