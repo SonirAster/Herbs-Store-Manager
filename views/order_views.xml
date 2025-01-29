@@ -12,15 +12,15 @@
         </field>
     </record>
 
-    <!-- List/Tree View -->
     <record id="hs_order_view_tree" model="ir.ui.view">
         <field name="name">hs.order.tree.view</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
             <list string="Orders list">
+                <field name="create_date" optional="hide"/>
                 <field name="status"/>
                 <field name="name" optional="show"/>
-                <field name="customer_id" optional="show"/>
+                <field name="customer_id" optional="hide"/>
                 <field name="urgency" optional="show"/>
                 <field name="delivery_point" optional="show"/>
                 <field name="price" optional="show"/>
@@ -28,7 +28,6 @@
         </field>
     </record>
 
-    <!-- Form View -->
     <record id="hs_order_view_form" model="ir.ui.view">
         <field name="name">hs.order.form.view</field>
         <field name="model">hs.order</field>
@@ -48,7 +47,7 @@
                         name='action_cancel_order' 
                         string="Mark as Canceled" 
                         invisible="status == 'canceled'" />
-                    <field name="status" widget='statusbar' statusbar_visible='fulfilled,sent,pending'/>
+                    <field name="status" widget='statusbar' statusbar_visible='fulfilled,sent,draft'/>
                 </header>
                 <sheet>
                     <group>
@@ -79,7 +78,6 @@
         </field>
     </record>
 
-    <!-- Search View -->
     <record id="view_hs_orders_search" model="ir.ui.view">
         <field name="name">hs.order.form.view</field>
         <field name="model">hs.order</field>

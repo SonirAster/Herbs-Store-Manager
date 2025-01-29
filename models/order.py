@@ -2,6 +2,13 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError, MissingError
 
 
+ORDER_STATUS = [
+    ('draft', 'Draft'),
+    ('sent', "Sent"),
+    ('canceled', "Canceled"),
+    ('fulfilled', 'Fulfilled')
+]
+
 class HS_Order (models.Model) :
     _name = 'hs.order'
     _description = "herbs store customer's order"
@@ -15,14 +22,10 @@ class HS_Order (models.Model) :
         string='Description',
     )
     status = fields.Selection(
+        selection=ORDER_STATUS,
         string='Status',
-        selection=[
-            ('pending', 'Pending'),
-            ('sent', "Sent"),
-            ('canceled', "Canceled"),
-            ('fulfilled', 'Fulfilled')
-        ],
-        default='pending',
+        tracking=1,
+        default='draft',
         readonly=True
     )
     delivery_point = fields.Char(
