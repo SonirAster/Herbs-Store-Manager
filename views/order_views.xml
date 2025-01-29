@@ -42,7 +42,8 @@
                     <button type="object" class='oe_highlight'
                         name='action_send_order' 
                         string="Mark as Sent" 
-                        invisible="status == 'canceled'" />
+                        invisible="status == 'canceled'"
+                    />
                     <button type="object" 
                         name='action_cancel_order' 
                         string="Mark as Canceled" 

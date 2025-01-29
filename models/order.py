@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError, MissingError
 
 
 class HS_Order (models.Model) :
@@ -74,6 +75,7 @@ class HS_Order (models.Model) :
     def action_cancel_order(self):
         for item in self:
             item.status = "canceled"
+        #raise ValidationError(('You can not do that.'))
         return True
 
 
