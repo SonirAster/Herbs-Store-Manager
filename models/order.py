@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError, MissingError
 
 
 ORDER_STATUS = [
@@ -24,7 +23,6 @@ class HS_Order (models.Model) :
     status = fields.Selection(
         selection=ORDER_STATUS,
         string='Status',
-        tracking=1,
         default='draft',
         readonly=True
     )
@@ -64,22 +62,21 @@ class HS_Order (models.Model) :
             order.price = 0.00
             for item in order.package_ids:
                 order.price += item.price
+
     # Fulfill the order
     def action_fulfill_order(self):
         for item in self:
             item.status = "fulfilled"
         return True
+    
     # Send_order_action the order
     def action_send_order(self):
         for item in self:
             item.status = "sent"
         return True
+    
     # Cancel_order_action the order
     def action_cancel_order(self):
         for item in self:
             item.status = "canceled"
-        #raise ValidationError(('You can not do that.'))
-        return True
-
-
-
+            item.price = 0

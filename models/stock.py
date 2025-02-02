@@ -28,5 +28,7 @@ class HS_stock (models.Model) :
         required=True,
         default = 0.00
     )
-
+    _sql_constraints = [
+        ('name_uniq', 'unique (name)', "A product with the same name already exists."),
+    ]
     # нужно чтобы после оформления заказа из кол-ва вычитывался проданныц товар

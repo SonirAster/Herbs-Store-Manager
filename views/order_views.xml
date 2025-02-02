@@ -27,6 +27,7 @@
             </list>
         </field>
     </record>
+                <!-- <button type="action" name="%(test.test_model_action)d" string="My Action"/> -->
 
     <record id="hs_order_view_form" model="ir.ui.view">
         <field name="name">hs.order.form.view</field>
@@ -35,18 +36,23 @@
             <form string="Orders form">
                 <header>
                     <button type="object" class='oe_highlight'
-                        name="action_fulfill_order" 
-                        string="Mark as Fulfilled" 
-                        invisible="status == 'canceled' or status == 'fulfilled'" />
-                    <button type="object" class='oe_highlight'
                         name='action_send_order' 
                         string="Mark as Sent" 
-                        invisible="status == 'canceled'"
+                        invisible="status != 'draft'"
+                    />
+                    <button type="object" class='oe_highlight'
+                        name="action_fulfill_order" 
+                        string="Mark as Fulfilled" 
+                        invisible="status == 'fulfilled' or 'canceled'"
+                        icon="fa-check"
                     />
                     <button type="object" 
                         name='action_cancel_order' 
-                        string="Mark as Canceled" 
-                        invisible="status == 'canceled'" />
+                        string="Mark as Canceled"  
+                        invisible="status == 'canceled' or 'fulfilled'"
+                        icon="fa-times"
+                        help='dsf'
+                    />
                     <field name="status" widget='statusbar' statusbar_visible='fulfilled,sent,draft'/>
                 </header>
                 <sheet>

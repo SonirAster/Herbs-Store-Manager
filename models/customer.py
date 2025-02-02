@@ -17,3 +17,6 @@ class HS_Customer (models.Model) :
         'hs.order', 'customer_id',
         string='Active Orders'
     )
+    def delete_order(self):
+        for rec in self:
+            rec.active_orders.unlink()
