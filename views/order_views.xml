@@ -5,10 +5,9 @@
         <field name='name'>Orders list</field>
         <field name='res_model'>hs.order</field>
         <field name='view_mode'>list,form</field>
+        <field name="context">{'search_default_current_orders': True}</field>
         <field name="help" type='html'>
-            <p class="o_view_nocontent_smiling_face">
-                Create a new order
-            </p>
+            <p class="o_view_nocontent_smiling_face">Create a new order</p>
         </field>
     </record>
 
@@ -17,18 +16,22 @@
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
             <list string="Orders list">
-                <field name="create_date" optional="hide"/>
-                <field name="status"/>
+                <field name="id" decoration-bf='True' />
                 <field name="name" optional="show"/>
                 <field name="customer_id" optional="hide"/>
                 <field name="urgency" optional="show"/>
                 <field name="delivery_point" optional="show"/>
                 <field name="price" optional="show"/>
+                <field name='create_date' optional='hide' options="{'show_time': false}" />
+                <field name="status" 
+                    widget='badge'
+                    decoration-success='status == "fulfilled"'
+                    decoration-muted='status == "canceled"'
+                    decoration-info='status == "draft" or "sent"'  
+                />
             </list>
         </field>
     </record>
-                <!-- <button type="action" name="%(test.test_model_action)d" string="My Action"/> -->
-
     <record id="hs_order_view_form" model="ir.ui.view">
         <field name="name">hs.order.form.view</field>
         <field name="model">hs.order</field>
@@ -43,22 +46,23 @@
                     <button type="object" class='oe_highlight'
                         name="action_fulfill_order" 
                         string="Mark as Fulfilled" 
-                        invisible="status == 'fulfilled' or 'canceled'"
+                        invisible="status != 'sent'"
                         icon="fa-check"
                     />
                     <button type="object" 
                         name='action_cancel_order' 
                         string="Mark as Canceled"  
-                        invisible="status == 'canceled' or 'fulfilled'"
+                        invisible="status == 'fulfilled' or status == 'canceled'"
                         icon="fa-times"
-                        help='dsf'
                     />
                     <field name="status" widget='statusbar' statusbar_visible='fulfilled,sent,draft'/>
                 </header>
                 <sheet>
                     <group>
                         <group>
+                            <field name="id"/>
                             <field name="name"/>
+                            <field name="status"/>
                             <field name="customer_id"/>
                         </group>
                         <group>
@@ -85,15 +89,21 @@
     </record>
 
     <record id="view_hs_orders_search" model="ir.ui.view">
-        <field name="name">hs.order.form.view</field>
+        <field name="name">hs.order.search.view</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
             <search string="hs orders search">
                 <field name="name" string="Title" />
                 <field name="delivery_point" string='Delivery Point'/>
                 <field name="package_ids" string='Package'/>
-                <field name="description" string='Description'/>
-                <filter name="Urgent Orders" domain="[('urgency', '=', 'urgent')]"/>
+                <field name="description" string="Order name and description"
+                    filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"/>
+                <filter name="urgent_orders" string="Urgent Orders"  domain="[('urgency', '=', 'urgent'), ('urgency', '=', 'very urgent')]"/>
+                <filter name="current_orders" string="Current Orders"  domain="[('status', '!=', 'fulfilled'), ('status', '!=', 'canceled')]"/>
+                <filter name="fulfilled_orders" string="Fulfilled Orders" domain="[('status', '=', 'fulfilled')]" />
+                <filter name="sent_orders" string="Sent Orders" domain="[('status', '=', 'sent')]" />
+                <filter name="group_by_status" string="Status" context="{'group_by' : 'status'}" />
+                <filter name="group_by_urgency" string="Urgency" context="{'group_by' : 'urgency'}" />
             </search>
         </field>
     </record>

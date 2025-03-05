@@ -12,7 +12,6 @@
         </field>
     </record>
 
-    <!-- List/Tree View -->
     <record id="hs_stock_view_tree" model="ir.ui.view">
         <field name="name">hs.stock.tree.view</field>
         <field name="model">hs.stock</field>
@@ -26,7 +25,6 @@
         </field>
     </record>
 
-    <!-- Form View -->
     <record id="hs_stock_view_form" model="ir.ui.view">
         <field name="name">hs.stock.form.view</field>
         <field name="model">hs.stock</field>
@@ -34,12 +32,14 @@
             <form string="Orders form">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="quantity"/>
-                    </group>
-                    <group>
-                        <field name="price"/>
-                        <field name="cost"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="cost"/>
+                            <field name="price"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Description">
@@ -54,14 +54,16 @@
         </field>
     </record>
 
-    <!-- Search View -->
-    <record id="view_hs_orders_search" model="ir.ui.view">
+    <record id="view_hs_stock_search" model="ir.ui.view">
         <field name="name">hs.stock.form.view</field>
         <field name="model">hs.stock</field>
         <field name="arch" type="xml">
-            <search string="hs orders search">
-                <field name="name" string="Stock item name" />
-                <field name="properties" string="Properties"/>
+            <search string="hs stock search">
+                <field name="description" string="Product name and description"
+                    filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"/> 
+                <field name="properties" string="Properties"
+                    filter_domain="[('properties', 'ilike', self)"/> 
+                <filter string="Is running out" name="is_running_out" domain="[('quantity', '&lt;', 5)]" />
             </search>
         </field>
     </record>

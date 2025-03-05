@@ -3,7 +3,7 @@
 
     <record id='hs_customers_action' model='ir.actions.act_window'>
         <field name='name'>Customers list</field>
-        <field name='res_model'>hs.customer</field>
+        <field name='res_model'>res.partner</field>
         <field name='view_mode'>list,form</field>
         <field name="help" type='html'>
             <p class="o_view_nocontent_smiling_face">
@@ -12,48 +12,73 @@
         </field>
     </record>
 
-    <!-- Tree View -->
     <record id="hs_customer_view_tree" model="ir.ui.view">
-        <field name="name">hs.customer.tree.view</field>
-        <field name="model">hs.customer</field>
+        <field name="name">res.partner.tree.view</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <list string="hs list">
                 <field name="name"/>
-                <field name="location"/>
-                <field name="active_orders"/>
+                <field name="country_id"/>
+                <field name="country_code"/>
+                <field name="active_order_ids"/>
             </list>
         </field>
     </record>
 
-    <!-- Form View -->
     <record id="hs_customer_view_form" model="ir.ui.view">
-        <field name="name">hs.customer.form.view</field>
-        <field name="model">hs.customer</field>
+        <field name="name">res.partner.form.view</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <form string="hs customers list">
-                <group>
-                    <group>
-                        <field name="name"/>
-                        <field name="location"/>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" type="action" 
+                            name="%(hs_orders_action)d"  icon="fa-list-ul">
+                            <field string="Orders" name="active_order_count" widget="statinfo"/> 
+                        </button>                           
+                    </div>
+                   <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="color" />
+                            <field name="city" />
+                            <field name="email" />
+                            <field name="email_formatted" />
+                            <field name="lang"/>
+                            <field name="phone" />
+                            <field name="comment" />
+                            <field name="active_order_count"/>
+                        </group>
+                        <group>
+                            <field name="active_order_ids">
+                                <list>
+                                    <field name='id' />
+                                    <field name='name' />
+                                    <field name='urgency' />
+                                    <field name='delivery_point' />
+                                    <field name='price' />
+                                </list>
+                            </field>
+                        </group>
                     </group>
-                    <group>
-                        <field name="active_orders" />
-                    </group>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>
 
-    <record id="view_hs_customers_search" model="ir.ui.view">
-        <field name="name">hs.customer.form.view</field>
-        <field name="model">hs.customer</field>
+    <!-- <record id="view_hs_customers_search" model="ir.ui.view">
+        <field name="name">res.partner.form.view</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <search string="HS customers search">
-                <field name="name" string="Location"/>
-                <field name="location" string="show"/>
-                <filter name="Customers located in Germany" domain="[('location', '=', 'Germany')]"/>
+                <field name="name"/>
+                <field name="country_id"/>
+                <filter name="Located in Germany" domain="[('country_id', '=', 'Germany')]"/>
+                <group expand="1" string="Group by country">
+                    <filter name="group_by_country_id" string="Country" context="{'group_by' : 'country_id'}" />
+                </group>
             </search>
         </field>
-    </record>
+    </record> -->
 
 </odoo>
