@@ -1,24 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 
-    <menuitem id='hs_menu_root' name='Herbs Store'>
-        <menuitem id='hs_menu_frontdesk' name='Front Desk'>
-            <menuitem 
-                id='hs_orders_menu_action'
-                name='Orders'
-                action='hs_orders_action'
-            />
-            <menuitem 
-                id='hs_stock_menu_action'
-                name='Stock'
-                action='hs_stock_action'
-            />
-            <menuitem 
-                id='hs_customers_menu_action'
-                name='Customers'
-                action='hs_customers_action'
-            />
-        </menuitem>
+    <menuitem id='hs_menu_root' name='Herbs Store' web_icon='herbs_store_manager,static/description/icon.png'>
+        <menuitem 
+            id='hs_orders_menu_action'
+            name='Orders'
+            action='hs_orders_action'
+        />
+        <menuitem 
+            id='hs_stock_menu_action'
+            name='Stock'
+            action='hs_stock_action'
+        />
+        <menuitem 
+            id='hs_customers_menu_action'
+            name='Customers'
+            action='hs_customers_action'
+        />
         <!-- <menuitem id='hs_menu_accounting'>
             <menuitem
                 id='hs_fulfilled_orders_menu_action'

@@ -1,5 +1,5 @@
 {
-    'name': 'Herbs Store Manager',
+    'name': 'Herbs Store',
     'author': 'Sofic',
     'depends' : ['base'],
     'license': 'LGPL-3',

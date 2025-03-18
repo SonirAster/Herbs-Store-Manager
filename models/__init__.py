@@ -1,1 +1,1 @@
-from . import order,customer,stock
+from . import order,res_partner,stock

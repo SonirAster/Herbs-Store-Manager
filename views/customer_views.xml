@@ -3,8 +3,8 @@
 
     <record id='hs_customers_action' model='ir.actions.act_window'>
         <field name='name'>Customers list</field>
-        <field name='res_model'>hs.customer</field>
-        <field name='view_mode'>list,form</field>
+        <field name='res_model'>res.partner</field>
+        <field name='view_mode'>list,form,kanban</field>
         <field name="help" type='html'>
             <p class="o_view_nocontent_smiling_face">
                 Create a new customer record
@@ -12,48 +12,84 @@
         </field>
     </record>
 
-    <!-- Tree View -->
     <record id="hs_customer_view_tree" model="ir.ui.view">
-        <field name="name">hs.customer.tree.view</field>
-        <field name="model">hs.customer</field>
+        <field name="name">res.partner.view.tree</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <list string="hs list">
                 <field name="name"/>
-                <field name="location"/>
-                <field name="active_orders"/>
+                <field name="active_order_ids"/>
             </list>
         </field>
     </record>
 
-    <!-- Form View -->
     <record id="hs_customer_view_form" model="ir.ui.view">
-        <field name="name">hs.customer.form.view</field>
-        <field name="model">hs.customer</field>
+        <field name="name">res.partner.view.form</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <form string="hs customers list">
-                <group>
-                    <group>
-                        <field name="name"/>
-                        <field name="location"/>
+                <sheet>
+                    <!-- <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" type="action" 
+                            name="%(hs_orders_action)d"  icon="fa-list-ul">
+                            <field string="Orders" name="active_order_count" widget="statinfo"/> 
+                        </button>                           
+                    </div> -->
+                   <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active_order_count"/>
+                        </group>
+                        <group>
+                            <field name="active_order_ids">
+                                <list>
+                                    <field name='id' />
+                                    <field name='name' />
+                                    <field name='urgency' />
+                                    <field name='delivery_point' />
+                                    <field name='price' />
+                                </list>
+                            </field>
+                        </group>
                     </group>
-                    <group>
-                        <field name="active_orders" />
-                    </group>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>
 
-    <record id="view_hs_customers_search" model="ir.ui.view">
-        <field name="name">hs.customer.form.view</field>
-        <field name="model">hs.customer</field>
+    <record id="hs_customer_view_kanban" model="ir.ui.view">
+        <field name="name">res.partner.view.kanban</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <search string="HS customers search">
-                <field name="name" string="Location"/>
-                <field name="location" string="show"/>
-                <filter name="Customers located in Germany" domain="[('location', '=', 'Germany')]"/>
-            </search>
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <!-- <field name="name"/> -->
+                            <div t-if="record.state.raw_value == 'new'">
+                                This is new!
+                            </div>
+                            
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
+
+    <!-- <record id="view_hs_customers_search" model="ir.ui.view">
+        <field name="name">res.partner.view.search</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="HS customers search">
+                <field name="name"/>
+                <field name="country_id"/>
+                <filter name="Located in Germany" domain="[('country_id', '=', 'Germany')]"/>
+                <group expand="1" string="Group by country">
+                    <filter name="group_by_country_id" string="Country" context="{'group_by' : 'country_id'}" />
+                </group>
+            </search>
+        </field>
+    </record> -->
 
 </odoo>
