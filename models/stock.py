@@ -27,8 +27,6 @@ class HS_stock (models.Model) :
     )
     image = fields.Image('Image')
 
-    # нужно чтобы после оформления заказа из кол-ва вычитывался проданныц товар
-
     @api.constrains('price', 'cost', 'quantity')
     def _check_price(self):
         for rec in self:

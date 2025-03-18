@@ -17,13 +17,7 @@
             name='Customers'
             action='hs_customers_action'
         />
-        <!-- <menuitem id='hs_menu_accounting'>
-            <menuitem
-                id='hs_fulfilled_orders_menu_action'
-                name='Fulfilled Orders'
-                action='hs_fullfilled_orders_action'
-            />
-        </menuitem> -->
+        
     </menuitem>
 
 </odoo>

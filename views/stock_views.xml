@@ -46,9 +46,7 @@
                                 </page>
                             </notebook>
                         </group>
-                        <group>
-                            <field name="image" class="w-120" widget="image" alt="Stock image"/>
-                        </group>
+                        <field name="image" class="w-120" widget="image" alt="Stock image"/>
                     </group>
                 </sheet>
             </form>
@@ -64,7 +62,6 @@
                     <t t-name="kanban-box">
                         <t t-name='card'  class="flex-row">
                             <main class="ps-2 ps-md-0">
-                            <!-- <field class="fw-bold" name="name"/> -->
                                 <h4><field name="name"/></h4>
                                 <div>
                                     <span>Quantity: </span>

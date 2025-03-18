@@ -26,8 +26,6 @@ class HS_Order (models.Model) :
     )
     delivery_point = fields.Char(
         string = 'Delivery Point',
-        #default='customer_id.location',
-        # related='customer_id.country_id',
         required = True,
     )
     package_ids = fields.Many2many(
