@@ -12,7 +12,7 @@
     </record>
 
     <record id="hs_order_view_tree" model="ir.ui.view">
-        <field name="name">hs.order.tree.view</field>
+        <field name="name">hs.order.view.tree</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
             <list string="Orders list">
@@ -33,7 +33,7 @@
         </field>
     </record>
     <record id="hs_order_view_form" model="ir.ui.view">
-        <field name="name">hs.order.form.view</field>
+        <field name="name">hs.order.view.form</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
             <form string="Orders form">
@@ -66,6 +66,7 @@
                             <field name="customer_id"/>
                         </group>
                         <group>
+                            <field name="datefield" />
                             <field name="urgency"/>
                             <field name="price"/>
                             <field name="delivery_point"/>
@@ -89,7 +90,7 @@
     </record>
 
     <record id="view_hs_orders_search" model="ir.ui.view">
-        <field name="name">hs.order.search.view</field>
+        <field name="name">hs.order.view.search</field>
         <field name="model">hs.order</field>
         <field name="arch" type="xml">
             <search string="hs orders search">

@@ -22,9 +22,6 @@ class Res_Partner (models.Model) :
         string='Orders Count',
         compute='_compute_active_order_count',
     )
-    def delete_order(self):
-        for rec in self:
-            rec.active_order_ids.unlink()
 
     @api.depends('active_order_ids')
     def _compute_active_order_count(self):
@@ -32,4 +29,7 @@ class Res_Partner (models.Model) :
         order_count = self.env['hs.order'].search_count([('customer_id', '=', self.id)])
         self.active_order_count = order_count
         #order_data = self.env['hs.order'].sudo()._read_group([('order_id', '=', self.id)])
-        
+    
+    def delete_order(self):
+        for rec in self:
+            rec.active_order_ids.unlink()

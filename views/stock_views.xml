@@ -4,7 +4,7 @@
     <record id='hs_stock_action' model='ir.actions.act_window'>
         <field name='name'>Stock</field>
         <field name='res_model'>hs.stock</field>
-        <field name='view_mode'>list,form</field>
+        <field name='view_mode'>kanban,list,form</field>
         <field name="help" type='html'>
             <p class="o_view_nocontent_smiling_face">
                 Create a new stock item
@@ -13,7 +13,7 @@
     </record>
 
     <record id="hs_stock_view_tree" model="ir.ui.view">
-        <field name="name">hs.stock.tree.view</field>
+        <field name="name">hs.stock.view.tree</field>
         <field name="model">hs.stock</field>
         <field name="arch" type="xml">
             <list string="Stock items list">
@@ -26,36 +26,75 @@
     </record>
 
     <record id="hs_stock_view_form" model="ir.ui.view">
-        <field name="name">hs.stock.form.view</field>
+        <field name="name">hs.stock.view.form</field>
         <field name="model">hs.stock</field>
         <field name="arch" type="xml">
-            <form string="Orders form">
+            <form string="Stock item form">
                 <sheet>
                     <group>
                         <group>
                             <field name="name"/>
                             <field name="quantity"/>
-                        </group>
-                        <group>
                             <field name="cost"/>
                             <field name="price"/>
+                            <notebook>
+                                <page string="Description">
+                                    <field name="description"/> 
+                                </page>
+                                <page string="Propeties">
+                                    <field name="properties"/>
+                                </page>
+                            </notebook>
+                        </group>
+                        <group>
+                            <field name="image" class="w-120" widget="image" alt="Stock image"/>
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Description">
-                            <field name="description"/> 
-                        </page>
-                        <page string="Propeties">
-                            <field name="properties"/>
-                        </page>
-                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
+    <record id="hs_stock_view_kanban" model="ir.ui.view">
+        <field name="name">hs.stock.view.kanban</field>
+        <field name="model">hs.stock</field>
+        <field name="arch" type="xml">
+            <kanban string="Stock Items kanban">
+                <templates>
+                    <t t-name="kanban-box">
+                        <t t-name='card'  class="flex-row">
+                            <main class="ps-2 ps-md-0">
+                            <!-- <field class="fw-bold" name="name"/> -->
+                                <h4><field name="name"/></h4>
+                                <div>
+                                    <span>Quantity: </span>
+                                    <field name="quantity" />
+                                </div> 
+                                <div>
+                                    <span>Price: </span>
+                                    <field name="price" />
+                                </div>
+                                <div>
+                                    <span>Cost: </span>
+                                    <field name="cost" />
+                                </div>
+                            </main>
+                            <aside class="o_kanban_aside_full">
+                                <field name="image" 
+                                    class="o_kanban_image_fill w-120" 
+                                    widget="image" 
+                                    options="{'img_class': 'object-fit-cover'}" 
+                                    alt="Stock image"/>
+                            </aside>
+                        </t>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="view_hs_stock_search" model="ir.ui.view">
-        <field name="name">hs.stock.form.view</field>
+        <field name="name">hs.stock.view.search</field>
         <field name="model">hs.stock</field>
         <field name="arch" type="xml">
             <search string="hs stock search">

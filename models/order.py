@@ -8,13 +8,11 @@ class HS_Order (models.Model) :
     name = fields.Char(
         string = 'Title', 
         required = True,
-        default = 'Order Name',
+        default = 'Order Name'
     )
-
     expected_delivery_time = fields.Date()
-
     description = fields.Html(string = 'Description')
-    
+    datefield = fields.Date('some date')
     status = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -26,32 +24,27 @@ class HS_Order (models.Model) :
         default = 'draft',
         readonly = True
     )
-
     delivery_point = fields.Char(
         string = 'Delivery Point',
         #default='customer_id.location',
         # related='customer_id.country_id',
         required = True,
     )
-
     package_ids = fields.Many2many(
         'hs.stock', 
         string = 'Order',
         required = True
     )
-
     price = fields.Float(
         compute = '_compute_total_price',
         string = 'Price ($)',
         default = 0.00
     )
-
     customer_id = fields.Many2one(
         'res.partner',
         string = 'Customer',
         required = True
     )
-
     urgency = fields.Selection(
         string = 'Urgency',
         required = True,

@@ -4,7 +4,7 @@
     <record id='hs_customers_action' model='ir.actions.act_window'>
         <field name='name'>Customers list</field>
         <field name='res_model'>res.partner</field>
-        <field name='view_mode'>list,form</field>
+        <field name='view_mode'>list,form,kanban</field>
         <field name="help" type='html'>
             <p class="o_view_nocontent_smiling_face">
                 Create a new customer record
@@ -13,40 +13,31 @@
     </record>
 
     <record id="hs_customer_view_tree" model="ir.ui.view">
-        <field name="name">res.partner.tree.view</field>
+        <field name="name">res.partner.view.tree</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <list string="hs list">
                 <field name="name"/>
-                <field name="country_id"/>
-                <field name="country_code"/>
                 <field name="active_order_ids"/>
             </list>
         </field>
     </record>
 
     <record id="hs_customer_view_form" model="ir.ui.view">
-        <field name="name">res.partner.form.view</field>
+        <field name="name">res.partner.view.form</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <form string="hs customers list">
                 <sheet>
-                    <div name="button_box" class="oe_button_box">
+                    <!-- <div name="button_box" class="oe_button_box">
                         <button class="oe_stat_button" type="action" 
                             name="%(hs_orders_action)d"  icon="fa-list-ul">
                             <field string="Orders" name="active_order_count" widget="statinfo"/> 
                         </button>                           
-                    </div>
+                    </div> -->
                    <group>
                         <group>
                             <field name="name"/>
-                            <field name="color" />
-                            <field name="city" />
-                            <field name="email" />
-                            <field name="email_formatted" />
-                            <field name="lang"/>
-                            <field name="phone" />
-                            <field name="comment" />
                             <field name="active_order_count"/>
                         </group>
                         <group>
@@ -66,8 +57,28 @@
         </field>
     </record>
 
+    <record id="hs_customer_view_kanban" model="ir.ui.view">
+        <field name="name">res.partner.view.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <!-- <field name="name"/> -->
+                            <div t-if="record.state.raw_value == 'new'">
+                                This is new!
+                            </div>
+                            
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!-- <record id="view_hs_customers_search" model="ir.ui.view">
-        <field name="name">res.partner.form.view</field>
+        <field name="name">res.partner.view.search</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <search string="HS customers search">
