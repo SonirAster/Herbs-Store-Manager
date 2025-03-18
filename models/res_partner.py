@@ -4,7 +4,6 @@ from odoo import api, fields, models
 class Res_Partner (models.Model) :
     _inherit = 'res.partner'
     
-    ddd = fields.Char(default='DD')
     active_order_ids = fields.One2many(
         'hs.order', 'customer_id',
         string='Active Orders'

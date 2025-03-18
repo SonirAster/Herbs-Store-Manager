@@ -12,7 +12,7 @@ class HS_Order (models.Model) :
     )
     expected_delivery_time = fields.Date()
     description = fields.Html(string = 'Description')
-    datefield = fields.Date('some date')
+    datefield = fields.Date('Expected delivery time')
     status = fields.Selection(
         selection=[
             ('draft', 'Draft'),

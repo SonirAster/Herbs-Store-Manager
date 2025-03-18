@@ -33,20 +33,24 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="quantity"/>
-                            <field name="cost"/>
-                            <field name="price"/>
-                            <notebook>
-                                <page string="Description">
-                                    <field name="description"/> 
-                                </page>
-                                <page string="Propeties">
-                                    <field name="properties"/>
-                                </page>
-                            </notebook>
+                            <group>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                                <field name="cost"/>
+                                <field name="price"/>
+                            </group>
+                            <div>
+                                <field name="image" class="w-120" widget="image" alt="Stock image"/>
+                            </div>
                         </group>
-                        <field name="image" class="w-120" widget="image" alt="Stock image"/>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/> 
+                            </page>
+                            <page string="Propeties">
+                                <field name="properties"/>
+                            </page>
+                        </notebook>
                     </group>
                 </sheet>
             </form>

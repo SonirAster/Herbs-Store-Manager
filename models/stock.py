@@ -25,7 +25,7 @@ class HS_stock (models.Model) :
         default = 0.00,
         help = 'actual price of the item'
     )
-    image = fields.Image('Image')
+    image = fields.Image( string='Image' )
 
     @api.constrains('price', 'cost', 'quantity')
     def _check_price(self):
@@ -33,6 +33,3 @@ class HS_stock (models.Model) :
             if rec.price < 0.00: raise ValidationError(f'The price cannot negative!')
             if rec.cost < 0.00: raise ValidationError(f'The cost cannot negative!')
             if rec.quantity < 0.00: raise ValidationError(f'The quantity cannot negative!')
-
-    def print_data (self):
-        print('data')
